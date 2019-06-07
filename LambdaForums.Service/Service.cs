@@ -39,7 +39,7 @@ namespace LambdaForums.Service
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
+        { 
             return await _entities.ToListAsync();
         }
 
