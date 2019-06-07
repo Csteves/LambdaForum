@@ -18,14 +18,41 @@ namespace LamdaForums.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Forum> forums = await _forumService.GetAllAsync();
-            var forumsVM = forums.Select(x => new ForumListingData
+            var forumsListings = forums.Select(x => new ForumListingData
             {
                 Id = x.Id,
                 Name = x.Title,
                 Description = x.Description
             });
+
+            var vm = new ForumIndexModel
+            {
+                ForumList = forumsListings,
+            };
            
-            return View();
+            return View(vm);
         }
+
+     
+
+        //Get:/Forum/Topic/{id}
+        public async Task<IActionResult> Topic(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            var forum = await _forumService.GetForumWithPostsAsync(id);
+            ForumTopicModel vm = new ForumTopicModel
+            {
+                Id = forum.Id,
+                Title = forum.Title,
+                Created = forum.Created,
+                Description = forum.Description,
+            };
+
+            return View(vm);
+        }
+        
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using LamdaForums.Data.Entities;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace LamdaForums.Data
 {
@@ -15,6 +16,7 @@ namespace LamdaForums.Data
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostReply> PostReplies { get; set; }
+
 
     }
 }

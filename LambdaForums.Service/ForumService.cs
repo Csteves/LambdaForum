@@ -3,6 +3,7 @@ using LamdaForums.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -19,10 +20,23 @@ namespace LambdaForums.Service
         {
         }
 
-        public async Task<IEnumerable<Forum>> GetAllForumsWithPostAsync()
+        public async Task<IEnumerable<Forum>> GetAllForumsWithPostsAsync()
         {
             var forums = await ApplicationDbContext.Forums.Include(x => x.Posts).ToListAsync();
             return forums;
+        }
+
+        public async Task<Forum> GetForumWithPostsAsync(int id)
+        {
+            var forum = await ApplicationDbContext.Forums
+                .Where(f => f.Id == id)
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.User)
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.Replies)
+                        .ThenInclude(r => r.User)
+                .FirstOrDefaultAsync();
+            return forum;
         }
 
         public Task<IEnumerable<ApplicationUser>> GetAllActiveUsers()

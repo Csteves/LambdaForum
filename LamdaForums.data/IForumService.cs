@@ -9,7 +9,8 @@ namespace LamdaForums.Data
 {
     public interface IForumService : IService<Forum>
     {
-        Task<IEnumerable<Forum>> GetAllForumsWithPostAsync();
+        Task<IEnumerable<Forum>> GetAllForumsWithPostsAsync();
+        Task<Forum> GetForumWithPostsAsync(int id);
         Task<IEnumerable<ApplicationUser>> GetAllActiveUsers();
         Task Create(Forum forum);
         Task Delete(int forumId);

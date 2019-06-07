@@ -6,11 +6,13 @@ using System.IO;
 using System.Text;
 using LamdaForums.Data;
 using Microsoft.EntityFrameworkCore.Design;
+using System.Diagnostics;
 
 namespace LamdaForums
 {
     class DesignTimeContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
+        //Added this to map the web layer to the data layer during app start up
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

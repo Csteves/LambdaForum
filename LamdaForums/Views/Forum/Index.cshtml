@@ -1,0 +1,24 @@
+﻿@model  LamdaForums.Models.ForumViewModels.ForumIndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Forums</h1>
+<table class="table">
+    <tbody >
+@foreach(var forum in Model.ForumList)
+{
+            <tr class="d-table-row">
+                <td>
+                    <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.Id" >
+                         @forum.Name
+                    </a>
+                </td>
+                <td>@forum.Description</td>
+            </tr>
+}
+    </tbody>
+</table>
+
+
