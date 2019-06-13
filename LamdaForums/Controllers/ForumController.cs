@@ -5,15 +5,18 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LamdaForums.Data.Entities;
+using LamdaForums.Models.Post;
 
 namespace LamdaForums.Controllers
 {
     public class ForumController : Controller
     {
         private readonly IForumService _forumService;
-        public ForumController(IForumService forumService)
+        private readonly IPostService _PostService;
+        public ForumController(IForumService forumService, IPostService postService)
         {
             _forumService = forumService;
+            _PostService = postService;
         }
         public async Task<IActionResult> Index()
         {
@@ -43,16 +46,40 @@ namespace LamdaForums.Controllers
                 return RedirectToAction("Index");
             }
             var forum = await _forumService.GetForumWithPostsAsync(id);
-            ForumTopicModel vm = new ForumTopicModel
+            var posts = await _PostService.GetPostsPerForumAsync(id);
+            var forumListing = BuildForumListing(forum);
+            var postListing = posts.Select(post => new PostListingModel
+            {
+                Id = post.Id,
+                Author = post.User.UserName,
+                AuthorRating = post.User.Rating.ToString(),
+                Title = post.Title,
+                DatePosted = post.Created.ToString(),
+                RepliesCount = post.Replies.Count(),
+                Forum = BuildForumListing(post),
+            });
+
+            var forumVm = new ForumTopicModel
+            {
+                Forum = forumListing,
+                Posts = postListing,
+            };
+            return View(forumVm);
+        }
+
+        private ForumListingData BuildForumListing(Post post)
+        {
+            return BuildForumListing(post.Forum);
+        }
+        private ForumListingData BuildForumListing(Forum forum)
+        {
+            return new ForumListingData
             {
                 Id = forum.Id,
-                Title = forum.Title,
-                Created = forum.Created,
+                Name = forum.Title,
                 Description = forum.Description,
+                ImageUrl = forum.ImageUrl,
             };
-
-            return View(vm);
         }
-        
     }
 }

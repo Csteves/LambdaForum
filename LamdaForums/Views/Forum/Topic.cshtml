@@ -8,11 +8,23 @@
 <h1>Lambda Forums</h1>
 
 <div>
-    <h4>@Model.Title</h4>
+    <h4>@Model.Forum.Name</h4>
     <hr />
-    <dl class="row">
-    </dl>
 </div>
+<div class="row">
+    <ul class="list-group">
+        @if(Model.Posts.Count() >= 1)
+        {
+            foreach(var post in Model.Posts)
+            {
+                <li>post.Title</li>
+            }
+        }else
+        {
+            <li>No posts have been made yet</li>
+        }
+</div>
+</ul>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

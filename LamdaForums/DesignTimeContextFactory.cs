@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using LamdaForums.Data;
 using Microsoft.EntityFrameworkCore.Design;
-using System.Diagnostics;
 
 namespace LamdaForums
 {

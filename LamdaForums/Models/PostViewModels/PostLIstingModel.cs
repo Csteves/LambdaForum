@@ -1,7 +1,7 @@
 ﻿using LamdaForums.Models.ForumViewModels;
 namespace LamdaForums.Models.Post
 {
-    public class PostLIstingModel
+    public class PostListingModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
