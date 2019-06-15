@@ -18,7 +18,14 @@ namespace LambdaForums.Service
             : base(context)
         {
         }
-
+        public async Task<Post> GetByIdAsync(int id)
+        {
+            var post = await ApplicationDbContext.Posts
+                            .Where(p => p.Id == id)
+                            .Include(p => p.User)
+                            .SingleAsync();
+            return post;
+        }
         public async Task<IEnumerable<Post>> GetFilteredPostsAsync(int id)
         {
             var posts = await ApplicationDbContext.Posts

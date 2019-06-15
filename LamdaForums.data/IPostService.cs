@@ -10,6 +10,7 @@ namespace LamdaForums.Data
         
         Task<IEnumerable<Post>> GetPostsPerForumAsync(int forumId);
         Task<IEnumerable<Post>> GetFilteredPostsAsync(int id);
+        Task<Post> GetByIdAsync(int id);
         //Task EditPostContentAsync(int id, string content);
         //Task AddReplyAsync(PostReply reply);
     }
