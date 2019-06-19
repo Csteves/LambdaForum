@@ -23,7 +23,9 @@ namespace LambdaForums.Service
             var post = await ApplicationDbContext.Posts
                             .Where(p => p.Id == id)
                             .Include(p => p.User)
-                            .SingleAsync();
+                            .Include(p => p.Replies)
+                                .ThenInclude(reply => reply.User)
+                            .FirstAsync();
             return post;
         }
         public async Task<IEnumerable<Post>> GetFilteredPostsAsync(int id)

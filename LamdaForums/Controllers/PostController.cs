@@ -56,16 +56,15 @@ namespace LamdaForums.Controllers
 
        private IEnumerable<PostReplyData> PostRepliesModelBuilder(IEnumerable<PostReply> replies)
         {
-            var postReplies = replies.Select(x => new PostReplyData
+            var postReplies = replies.Select(reply => new PostReplyData
             {
-                Id = x.Id,
-                Title = x.Title,
-                Content = x.Content,
-                Created = x.Created,
-                AuthorId = x.User.Id,
-                AuthorName = x.User.UserName,
-                AuthorImageUrl = x.User.ProfileImageUrl,
-                AuthorRating = x.User.Rating.ToString(),
+                Id = reply.Id,
+                Content = reply.Content,
+                Created = reply.Created,
+                AuthorId = reply.User.Id,
+                AuthorName = reply.User.UserName,
+                AuthorImageUrl = reply.User.ProfileImageUrl,
+                AuthorRating = reply.User.Rating.ToString(),
             });
             return postReplies;
         }

@@ -1,8 +1,29 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "/Views/Shared/_Layout.cshtml";
-}
+﻿@model  LamdaForums.Models.PostViewModels.PostIndexData
 
-<h1>Coming soon, Post details!</h1>
+<h1>@Model.Title</h1>
+
+<div>
+
+   Author: @Model.AuthorName  (@Model.AuthorRating)
+   Created: @Model.Created 
+</div>
+<div>
+    @Model.Content
+</div>
+
+@if (Model.Replies.Any())
+{
+    <h2>Replies</h2>
+    foreach(var reply in Model.Replies)
+    {
+        <div>
+            Author: @reply.AuthorName  (@reply.AuthorRating)
+            Created: @reply.Created
+        </div>
+        <div>
+            @reply.Content
+        </div>
+        <hr />
+    }
+}
 
